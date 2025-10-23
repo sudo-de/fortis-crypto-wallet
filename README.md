@@ -8,10 +8,15 @@ A secure, command-line cryptocurrency wallet built in Rust. This wallet supports
 - 🌱 **BIP39 Seed Phrases**: 12-word mnemonic seed phrases for wallet recovery
 - 🔑 **HD Wallet Support**: Hierarchical deterministic wallet with BIP32/BIP44
 - 💰 **Balance Checking**: Real-time balance queries from blockchain
-- 📤 **Transaction Sending**: Send Bitcoin to any address
+- 📤 **Transaction Sending**: Send Bitcoin to any address with custom fee rates
 - 🏠 **Multiple Addresses**: Generate multiple addresses from a single seed
-- 💾 **Local Storage**: Encrypted wallet files stored locally
+- 💾 **Encrypted Storage**: AES-256-GCM encrypted wallet files with Argon2 key derivation
 - 🌐 **Network Support**: Mainnet and testnet support
+- 📊 **Transaction History**: Complete transaction tracking and export
+- 📚 **Address Book**: Save and manage frequently used addresses
+- ⚡ **Fee Estimation**: Smart Bitcoin fee estimation with multiple priority levels
+- 🔒 **Password Protection**: Optional password encryption for wallet files
+- 📈 **Performance**: Optimized for speed and memory efficiency
 
 ## Installation
 
@@ -65,6 +70,41 @@ cargo run -- send --wallet-name my-wallet --to-address 1A1zP1eP5QGefi2DMPTfTL5SL
 
 ```bash
 cargo run -- addresses --wallet-name my-wallet
+```
+
+### View Transaction History
+
+```bash
+cargo run -- history --wallet-name my-wallet --limit 20
+```
+
+### Manage Address Book
+
+```bash
+# Add address to book
+cargo run -- add-address --name "Alice" --address "1A1zP1eP5QGefi2DMPTfTL5SLmv7DivfNa" --label "Friend"
+
+# List address book
+cargo run -- list-addresses --search "Alice"
+
+# Show favorites only
+cargo run -- list-addresses --favorites
+```
+
+### Estimate Transaction Fees
+
+```bash
+cargo run -- estimate-fee --inputs 1 --outputs 2 --priority normal
+```
+
+### Encrypt/Decrypt Wallet
+
+```bash
+# Encrypt wallet with password
+cargo run -- encrypt --wallet-name my-wallet --password "my_secure_password"
+
+# Decrypt wallet
+cargo run -- decrypt --wallet-name my-wallet --password "my_secure_password"
 ```
 
 ## Security Features
