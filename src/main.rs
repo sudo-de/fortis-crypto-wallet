@@ -3,8 +3,8 @@ use crypto_wallet::{
     wallet::Wallet,
     cli::{CreateWallet, ImportWallet, SendTransaction, GetBalance, ListAddresses},
     error::WalletError,
+    web_server::WebServer,
 };
-use log::info;
 
 #[derive(Parser)]
 #[command(name = "crypto-wallet")]
@@ -27,6 +27,8 @@ enum Commands {
     Balance(GetBalance),
     /// List all addresses
     Addresses(ListAddresses),
+    /// Start web server with GUI
+    Server,
 }
 
 #[tokio::main]
@@ -43,7 +45,7 @@ async fn main() -> Result<(), WalletError> {
             println!("⚠️  IMPORTANT: Store your seed phrase in a safe place!");
         }
         Commands::Import(args) => {
-            let wallet = Wallet::from_seed_phrase(&args.seed_phrase, &args.name)?;
+            let _wallet = Wallet::from_seed_phrase(&args.seed_phrase, &args.name)?;
             println!("✅ Wallet '{}' imported successfully!", args.name);
         }
         Commands::Send(args) => {
@@ -64,6 +66,11 @@ async fn main() -> Result<(), WalletError> {
             for (i, addr) in addresses.iter().enumerate() {
                 println!("  {}: {}", i + 1, addr);
             }
+        }
+        Commands::Server => {
+            println!("🌐 Starting web server...");
+            let web_server = WebServer::new();
+            web_server.start().await?;
         }
     }
     

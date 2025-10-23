@@ -1,5 +1,4 @@
 use std::path::PathBuf;
-use serde::{Deserialize, Serialize};
 use crate::{wallet::Wallet, error::WalletError};
 
 pub struct WalletStorage;
