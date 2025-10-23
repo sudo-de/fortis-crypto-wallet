@@ -1,0 +1,54 @@
+[package]
+name = "crypto-wallet"
+version = "0.1.0"
+edition = "2021"
+authors = ["Your Name <your.email@example.com>"]
+description = "A secure cryptocurrency wallet application"
+license = "MIT"
+
+[dependencies]
+# Cryptography
+secp256k1 = "0.28"
+sha2 = "0.10"
+ripemd = "0.1"
+base58 = "0.2"
+hex = "0.4"
+rand = "0.8"
+bip39 = "2.0"
+bip32 = "0.5"
+
+# Serialization
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+toml = "0.8"
+
+# Encryption and security
+aes-gcm = "0.10"
+argon2 = "0.5"
+scrypt = "0.11"
+
+# Network and HTTP
+reqwest = { version = "0.11", features = ["json"] }
+tokio = { version = "1.0", features = ["full"] }
+
+# CLI
+clap = { version = "4.0", features = ["derive"] }
+dialoguer = "0.11"
+console = "0.15"
+
+# Error handling
+anyhow = "1.0"
+thiserror = "1.0"
+
+# Logging
+log = "0.4"
+env_logger = "0.10"
+
+# File system
+dirs = "5.0"
+
+# Date/time
+chrono = { version = "0.4", features = ["serde"] }
+
+[dev-dependencies]
+tempfile = "3.0"
