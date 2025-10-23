@@ -1,4 +1,4 @@
-# Crypto Wallet
+# Fortis Crypto Wallet
 
 A secure, command-line cryptocurrency wallet built in Rust. This wallet supports Bitcoin and provides a foundation for multi-cryptocurrency support.
 
@@ -23,8 +23,8 @@ A secure, command-line cryptocurrency wallet built in Rust. This wallet supports
 ### Build from Source
 
 ```bash
-git clone <repository-url>
-cd crypto-wallet
+git clone https://github.com/sudo-de/fortis-crypto-wallet.git
+cd fortis-crypto-wallet
 cargo build --release
 ```
 
