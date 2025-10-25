@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Transaction Alert - XCryptoVault</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f8fafc;
+        }
+        .container {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+        .header {
+            background: linear-gradient(135deg, #38a169 0%, #2f855a 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+        .logo {
+            font-size: 32px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        .content {
+            padding: 30px;
+        }
+        .title {
+            font-size: 24px;
+            font-weight: bold;
+            color: #2d3748;
+            margin-bottom: 20px;
+        }
+        .transaction-details {
+            background: #f7fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        .transaction-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        .transaction-row:last-child {
+            border-bottom: none;
+        }
+        .transaction-label {
+            font-weight: bold;
+            color: #4a5568;
+        }
+        .transaction-value {
+            color: #2d3748;
+        }
+        .status-badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+        .status-completed {
+            background: #c6f6d5;
+            color: #22543d;
+        }
+        .status-pending {
+            background: #fef5e7;
+            color: #c05621;
+        }
+        .status-failed {
+            background: #fed7d7;
+            color: #c53030;
+        }
+        .security-notice {
+            background: #fef5e7;
+            border: 1px solid #f6ad55;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        .footer {
+            background: #f7fafc;
+            padding: 20px;
+            text-align: center;
+            color: #718096;
+            font-size: 14px;
+        }
+        .footer a {
+            color: #38a169;
+            text-decoration: none;
+        }
+        .amount {
+            font-size: 24px;
+            font-weight: bold;
+            color: #2d3748;
+        }
+        .currency {
+            font-size: 18px;
+            color: #4a5568;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="logo">₿ XCryptoVault</div>
+            <p>Transaction Alert</p>
+        </div>
+        
+        <div class="content">
+            <h1 class="title">{{transaction_type}} Alert</h1>
+            
+            <p>Hello {{user_name}},</p>
+            
+            <p>A {{transaction_type}} transaction has been {{transaction_status}} on your XCryptoVault account.</p>
+            
+            <div class="transaction-details">
+                <h3>📊 Transaction Details</h3>
+                
+                <div class="transaction-row">
+                    <span class="transaction-label">Amount:</span>
+                    <span class="transaction-value">
+                        <span class="amount">{{amount}}</span>
+                        <span class="currency">{{currency}}</span>
+                    </span>
+                </div>
+                
+                <div class="transaction-row">
+                    <span class="transaction-label">Status:</span>
+                    <span class="transaction-value">
+                        <span class="status-badge status-{{transaction_status}}">{{transaction_status}}</span>
+                    </span>
+                </div>
+                
+                <div class="transaction-row">
+                    <span class="transaction-label">From Address:</span>
+                    <span class="transaction-value" style="font-family: monospace; font-size: 12px;">{{from_address}}</span>
+                </div>
+                
+                <div class="transaction-row">
+                    <span class="transaction-label">To Address:</span>
+                    <span class="transaction-value" style="font-family: monospace; font-size: 12px;">{{to_address}}</span>
+                </div>
+                
+                <div class="transaction-row">
+                    <span class="transaction-label">Transaction Hash:</span>
+                    <span class="transaction-value" style="font-family: monospace; font-size: 12px;">{{tx_hash}}</span>
+                </div>
+                
+                <div class="transaction-row">
+                    <span class="transaction-label">Network Fee:</span>
+                    <span class="transaction-value">{{network_fee}} {{currency}}</span>
+                </div>
+                
+                <div class="transaction-row">
+                    <span class="transaction-label">Timestamp:</span>
+                    <span class="transaction-value">{{timestamp}}</span>
+                </div>
+                
+                <div class="transaction-row">
+                    <span class="transaction-label">Confirmations:</span>
+                    <span class="transaction-value">{{confirmations}}/{{required_confirmations}}</span>
+                </div>
+            </div>
+            
+            {{#if is_large_transaction}}
+            <div class="security-notice">
+                <h4>⚠️ Large Transaction Alert</h4>
+                <p>This is a large transaction that exceeds your normal spending patterns. If you didn't authorize this transaction, please contact our security team immediately.</p>
+            </div>
+            {{/if}}
+            
+            {{#if is_suspicious}}
+            <div class="security-notice">
+                <h4>🚨 Suspicious Activity Alert</h4>
+                <p>This transaction has been flagged as potentially suspicious. Please review the details carefully and contact support if you have any concerns.</p>
+            </div>
+            {{/if}}
+            
+            <h3>🔗 Quick Actions</h3>
+            <p>
+                <a href="{{transaction_url}}">View Transaction Details</a> | 
+                <a href="{{dashboard_url}}">Go to Dashboard</a> | 
+                <a href="{{support_url}}">Contact Support</a>
+            </p>
+        </div>
+        
+        <div class="footer">
+            <p>This email was sent to {{user_email}} because a transaction alert was triggered for your XCryptoVault account.</p>
+            <p>
+                <a href="{{unsubscribe_url}}">Unsubscribe from Transaction Alerts</a> | 
+                <a href="{{security_url}}">Security Center</a> | 
+                <a href="{{privacy_url}}">Privacy Policy</a>
+            </p>
+            <p>&copy; 2024 XCryptoVault. All rights reserved.</p>
+        </div>
+    </div>
+</body>
+</html>
